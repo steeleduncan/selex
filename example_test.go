@@ -99,5 +99,29 @@ func TestTexpad(t *testing.T) {
         t.Errorf("Error writing in text")
 	}
 
+    time.Sleep(1 * time.Second)
+
+	passwordField, err := wr.Driver().FindElement(selenium.ByID, "password")
+	if err != nil {
+        t.Errorf("Error finding password field")
+	}
+	if err := passwordField.Clear(); err != nil {
+        t.Errorf("Error clearing the password field")
+	}
+	err = passwordField.SendKeys("not-my-password")
+	if err != nil {
+        t.Errorf("Error writing in text to password")
+	}
+
+    time.Sleep(1 * time.Second)
+
+	loginButton2, err := wr.Driver().FindElement(selenium.ByLinkText, "Log in")
+	if err != nil {
+        t.Errorf("Error finding login button")
+	}
+	if err := loginButton2.Click(); err != nil {
+        t.Errorf("Error clicking login button")
+	}
+
     time.Sleep(10 * time.Second)
 }

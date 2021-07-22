@@ -7,6 +7,11 @@ import (
 	"github.com/tebeka/selenium"
 )
 
+/*
+    - brew install geckodriver selenium-server-standalone
+    - fix path to jar file
+ */
+
 type WebRunner struct {
     wd selenium.WebDriver
     srv *selenium.Service
