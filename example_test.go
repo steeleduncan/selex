@@ -68,4 +68,36 @@ func TestGoPlayground(t *testing.T) {
 }
 
 func TestTexpad(t *testing.T) {
+    wr, err := NewWebRunner()
+    if err != nil {
+        t.Errorf("Error booting web runner")
+    }
+    defer wr.Teardown()
+
+	if err := wr.Driver().Get("https://texpad.com"); err != nil {
+        t.Errorf("Error navigating to website: %v", err)
+	}
+
+	loginButton, err := wr.Driver().FindElement(selenium.ByLinkText, "Log in")
+	if err != nil {
+        t.Errorf("Error finding login button")
+	}
+
+	if err := loginButton.Click(); err != nil {
+        t.Errorf("Error clicking login button")
+	}
+
+	usernameField, err := wr.Driver().FindElement(selenium.ByID, "username")
+	if err != nil {
+        t.Errorf("Error finding username field")
+	}
+	if err := usernameField.Clear(); err != nil {
+        t.Errorf("Error clearing the username field")
+	}
+	err = usernameField.SendKeys("chuffy")
+	if err != nil {
+        t.Errorf("Error writing in text")
+	}
+
+    time.Sleep(10 * time.Second)
 }
